@@ -1,6 +1,6 @@
 <?php
 
-# Copyright (C) 2009-2011  Vahid sohrabloo (iranphp.org) 
+# Copyright (C) 2009-2011 Vahid sohrabloo (iranphp.org) 
 # 
 # This program is free software; you can redistribute it and/or 
 # modify it under the terms of the GNU General Public License 
@@ -9,17 +9,16 @@
 # 
 # This program is distributed in the hope that it will be useful, 
 # but WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
 # GNU General Public License for more details. 
 # 
 # A copy of the GNU General Public License is available from: 
 # 
-#    <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a> 
-# 
+# <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a> 
 
 # Version 1.2.1
 
-$pdateWeekName= array(
+static $pdateWeekName= array(
 'شنبه',
 'یکشنبه',
 'دوشنبه',
@@ -27,7 +26,7 @@ $pdateWeekName= array(
 'چهارشنبه',
 'پنج شنبه',
 'جمعه');
-$pdateMonthName= array(
+static $pdateMonthName= array(
 '',
 'فروردین',
 'اردیبهشت',
@@ -41,7 +40,7 @@ $pdateMonthName= array(
 'دی',
 'بهمن',
 'اسفند');
-$MonthDays= array(0, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
+static $MonthDays= array(0, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
 
 function pdate($format, $timestamp= '')
 {
@@ -393,7 +392,7 @@ function DayOfYear($pYear, $pMonth, $pDay)
 
 function isKabise($year)
 {
-	$mod= $year % 33;
+	$mod= ($year % 33);
 
 		if($mod == 1 or $mod == 5 or $mod == 9 or $mod == 13 or $mod == 17 or $mod == 22 or $mod == 26 or $mod == 30)
 		{
@@ -406,7 +405,7 @@ function isKabise($year)
 function pmktime($hour= 0, $minute= 0, $second= 0, $month= 0, $day= 0, $year= 0, $is_dst= -1)
 {
 	
-		if($hour==0 && $minute==0 && $second==0 && $month==0 && $day==0 && $year==0)
+		if($hour == 0 && $minute == 0 && $second == 0 && $month == 0 && $day == 0 && $year == 0)
 		{
 			return time();
 		}
@@ -417,12 +416,13 @@ function pmktime($hour= 0, $minute= 0, $second= 0, $month= 0, $day= 0, $year= 0,
 
 function pcheckdate($month, $day, $year)
 {
-	global $MonthDays;
 
-		if($month < 1 || $month > 12 || $year < 1  || $year > 32767 || $day < 1)
+		if($month < 1 || $month > 12 || $year < 1 || $year > 32767 || $day < 1)
 		{
 			return 0;
 		}
+
+	global $MonthDays;
 
 		if($day > $MonthDays[$month])
 		{
@@ -439,12 +439,15 @@ function pgetdate($timestamp= '')
 {
 
 		if($timestamp=== '')
+		{
 			$timestamp=mktime();
+		}
+
 	list($seconds, $minutes, $hours, $mday, $wday, $mon, $year, $yday, $weekday, $month)= explode('-', pdate('s-i-G-j-w-n-Y-z-l-F', $timestamp));
-	return array(0=>$timestamp, 'seconds'=>$seconds, 'minutes'=>$minutes, 'hours'=>$hours, 'mday'=>$mday, 'wday'=>$wday, 'mon'=>$mon, 'year'=>$year, 'yday'=>$yday, 'weekday'=>$weekday,	'month'=>$month,);
+	return array(0=>$timestamp, 'seconds'=>$seconds, 'minutes'=>$minutes, 'hours'=>$hours, 'mday'=>$mday, 'wday'=>$wday, 'mon'=>$mon, 'year'=>$year, 'yday'=>$yday, 'weekday'=>$weekday, 'month'=>$month,);
 }
 
-# Copyright (C) 2000  Roozbeh Pournader and Mohammad Toossi 
+# Copyright (C) 2000 Roozbeh Pournader and Mohammad Toossi 
 # 
 # This program is free software; you can redistribute it and/or 
 # modify it under the terms of the GNU General Public License 
@@ -453,100 +456,111 @@ function pgetdate($timestamp= '')
 # 
 # This program is distributed in the hope that it will be useful, 
 # but WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
 # GNU General Public License for more details. 
 # 
 # A copy of the GNU General Public License is available from: 
 # 
-#    <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a> 
+# <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a> 
 
 function div($a, $b)
 {
 	return (int)($a / $b);
 }
 
-function gregorian_to_jalali ($g_y, $g_m, $g_d) 
+function gregorian_to_jalali ($g_y, $g_m, $g_d)
 {
-	$g_days_in_month = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31); 
-	$j_days_in_month = array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);     
-	$gy = $g_y-1600; 
-	$gm = $g_m-1; 
-	$gd = $g_d-1; 
-	$g_day_no = 365*$gy+div($gy+3,4)-div($gy+99,100)+div($gy+399,400); 
-	
-	for ($i=0; $i < $gm; ++$i)
-	$g_day_no += $g_days_in_month[$i]; 
-	
-	if ($gm>1 && (($gy%4==0 && $gy%100!=0) || ($gy%400==0))) 
-	/* leap and after Feb */ 
-	$g_day_no++; 
-	$g_day_no += $gd; 
-	$j_day_no = $g_day_no-79; 
-	$j_np = div($j_day_no, 12053); /* 12053 = 365*33 + 32/4 */ 
-	$j_day_no = $j_day_no % 12053; 
-	$jy = 979+33*$j_np+4*div($j_day_no,1461); /* 1461 = 365*4 + 4/4 */ 
-	$j_day_no %= 1461;
+	$g_days_in_month= array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+	$j_days_in_month= array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
+	$gy= ($g_y - 1600);
+	$gm= ($g_m - 1);
+	$gd= ($g_d - 1);
+	$g_day_no= (365 * $gy + div($gy + 3, 4) - div($gy + 99, 100) + div($gy + 399, 400));
+
+		for($i= 0; $i < $gm; ++$i)
+		{
+			$g_day_no += $g_days_in_month[$i];
+		}
+
+		if ($gm>1 && (($gy%4==0 && $gy%100!=0) || ($gy%400==0)))
+	/* leap and after Feb */
+	$g_day_no++;
+	$g_day_no+= $gd;
+	$j_day_no= $g_day_no-79;
+	$j_np= div($j_day_no, 12053); /* 12053= 365 * 33 + 32 / 4 */
+	$j_day_no= $j_day_no % 12053;
+	$jy= (979 + 33 * $j_np + 4 * div($j_day_no, 1461)); /* 1461= 365 * 4 + 4 / 4 */
+	$j_day_no%= 1461;
 
 		if($j_day_no >= 366)
 		{ 
-			$jy+= div($j_day_no - 1, 365); 
-			$j_day_no= ($j_day_no - 1) % 365; 
+			$jy+= div($j_day_no - 1, 365);
+			$j_day_no= ($j_day_no - 1) % 365;
 		} 
 
-	for($i = 0; $i < 11 && $j_day_no >= $j_days_in_month[$i]; ++$i)
-	$j_day_no -= $j_days_in_month[$i];
-	$jm = $i+1;
-	$jd = $j_day_no+1;
+		for($i= 0; $i < 11 && $j_day_no >= $j_days_in_month[$i]; ++$i)
+		{
+			$j_day_no-= $j_days_in_month[$i];
+		}
+
+	$jm= ($i + 1);
+	$jd= ($j_day_no + 1);
 	return array($jy, $jm, $jd);
 }
 
-function jalali_to_gregorian($j_y, $j_m, $j_d) 
-{ 
-	$g_days_in_month = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31); 
-	$j_days_in_month = array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
-	$jy = $j_y-979;
-	$jm = $j_m-1;
-	$jd = $j_d-1;
-   $j_day_no = 365*$jy + div($jy, 33)*8 + div($jy%33+3, 4); 
+function jalali_to_gregorian($j_y, $j_m, $j_d)
+{
+	$g_days_in_month= array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+	$j_days_in_month= array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
+	$jy= ($j_y - 979);
+	$jm= ($j_m - 1);
+	$jd= ($j_d - 1);
+	$j_day_no= (365 * $jy + div($jy, 33) * 8 + div($jy % 33 + 3, 4));
 
-   for($i=0; $i < $jm; ++$i) 
-      $j_day_no += $j_days_in_month[$i]; 
+		for($i= 0; $i < $jm; ++$i)
+		{
+			$j_day_no+= $j_days_in_month[$i];
+		}
 
-   $j_day_no += $jd; 
+	$j_day_no+= $jd;
+	$g_day_no= ($j_day_no + 79);
+	$gy = 1600 + 400*div($g_day_no, 146097); /* 146097= 365 * 400 + 400 / 4 - 400 / 100 + 400 / 400 */
+	$g_day_no= $g_day_no % 146097;
+	$leap= 1;
 
-   $g_day_no = $j_day_no+79; 
+		if($g_day_no >= 36525) /* 36525= 365*100 + 100 / 4 */
+		{
+			$g_day_no--;
+			$gy+= (100 * div($g_day_no, 36524)); /* 36524= (365 * 100 + 100 / 4 - 100 / 100)*/
+			$g_day_no= ($g_day_no % 36524);
+				if($g_day_no >= 365)
+				{
+					$g_day_no++;
+				}
+				else
+				{
+					$leap= 0;
+				}
+		} 
 
-   $gy = 1600 + 400*div($g_day_no, 146097); /* 146097 = 365*400 + 400/4 - 400/100 + 400/400 */ 
-   $g_day_no = $g_day_no % 146097; 
-
-   $leap= 1; 
-   if ($g_day_no >= 36525) /* 36525 = 365*100 + 100/4 */ 
-   { 
-      $g_day_no--; 
-      $gy += 100*div($g_day_no,  36524); /* 36524 = 365*100 + 100/4 - 100/100 */ 
-      $g_day_no = $g_day_no % 36524; 
-
-      if ($g_day_no >= 365) 
-         $g_day_no++; 
-      else 
-         $leap = 0; 
-   } 
-
-	$gy += 4*div($g_day_no, 1461); /* 1461 = 365*4 + 4/4 */ 
-	$g_day_no %= 1461; 
+	$gy+= 4*div($g_day_no, 1461); /* 1461= (365 * 4 + 4 / 4)*/
+	$g_day_no%= 1461;
 
 		if($g_day_no >= 366)
 		{
-		$leap= 0;
-		$g_day_no--;
-		$gy += div($g_day_no, 365);
-		$g_day_no = $g_day_no % 365;
+			$leap= 0;
+			$g_day_no--;
+			$gy+= div($g_day_no, 365);
+			$g_day_no= $g_day_no % 365;
 		}
 
-	for($i = 0; $g_day_no >= $g_days_in_month[$i] + ($i == 1 && $leap); $i++)
-	$g_day_no -= $g_days_in_month[$i] + ($i == 1 && $leap); 
-	$gm = $i+1; 
-	$gd = $g_day_no+1; 
+		for($i= 0; $g_day_no >= ($g_days_in_month[$i] + ($i == 1 && $leap)); $i++)
+		{
+			$g_day_no-= ($g_days_in_month[$i] + ($i == 1 && $leap));
+		}
 
-	return array($gy, $gm, $gd); 
+	$gm= $i+1;
+	$gd= $g_day_no+1;
+
+	return array($gy, $gm, $gd);
 }
