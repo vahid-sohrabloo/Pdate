@@ -16,7 +16,7 @@
 # 
 # <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a> 
 
-# Version 1.2.1
+# Version 1.2.7
 
 static $pdateWeekName= array(
 'شنبه',
@@ -62,7 +62,7 @@ function pdate($format, $timestamp= '')
 			$pWeek= 0;
 		}
 
-	$lenghFormat= strlen($format);
+	$lenghFormat= strlen((string)$format);
 	$i= 0;
 	$result= '';
 
@@ -187,7 +187,7 @@ function pdate($format, $timestamp= '')
 					break;
 
 					case 'r':
-							$result.= substr($pdateWeekName[$pWeek],0,2) . '، ' . $pDay . ' ' . substr($pdateMonthName[$pMonth],0,6) . ' ' . $pYear . ' ' . date('H::i:s P', $timestamp);
+							$result.= substr($pdateWeekName[$pWeek], 0, 2) . '، ' . $pDay . ' ' . substr($pdateMonthName[$pMonth],0,6) . ' ' . $pYear . ' ' . date('H::i:s P', $timestamp);
 					break;
 
 					case 'U':
@@ -219,12 +219,12 @@ function pstrftime($format, $timestamp= '')
 	list($pYear, $pMonth, $pDay)= gregorian_to_jalali($gYear, $gMonth, $gDay);
 	$pWeek= ($gWeek + 1);
 	
-		if($pWeek==7)
+		if($pWeek == 7)
 		{
 			$pWeek= 0;
 		}
 
-	$lenghFormat= strlen($format);
+	$lenghFormat= strlen((string)$format);
 	$i= 0;
 	$result= '';
 
@@ -327,7 +327,7 @@ function pstrftime($format, $timestamp= '')
 								$result.= ($type == 'p') ? 'ق.ظ' : (($type == 'P') ? 'قبل از ظهر' : strftime("%I:%M:%S قبل از ظهر", $timestamp));
 							}
 							else{
-								$result.= ($type=='p')?'ب.ظ':(($type=='P')?'بعد از ظهر':strftime("%I:%M:%S بعد از ظهر", $timestamp));
+								$result.= ($type == 'p') ? 'ب.ظ' : (($type == 'P') ? 'بعد از ظهر' : strftime("%I:%M:%S بعد از ظهر", $timestamp));
 							}
 						break;
 						
@@ -387,14 +387,14 @@ function DayOfYear($pYear, $pMonth, $pDay)
 			$days+= $MonthDays[$i];
 		}
 
-	return $days+$pDay;
+	return ($days + $pDay);
 }
 
 function isKabise($year)
 {
 	$mod= ($year % 33);
 
-		if($mod == 1 or $mod == 5 or $mod == 9 or $mod == 13 or $mod == 17 or $mod == 22 or $mod == 26 or $mod == 30)
+		if(($mod == 1) or ($mod == 5) or ($mod == 9) or ($mod == 13) or ($mod == 17) or ($mod == 22) or ($mod == 26) or ($mod == 30))
 		{
 			return 1;
 		}
@@ -405,19 +405,19 @@ function isKabise($year)
 function pmktime($hour= 0, $minute= 0, $second= 0, $month= 0, $day= 0, $year= 0, $is_dst= -1)
 {
 	
-		if($hour == 0 && $minute == 0 && $second == 0 && $month == 0 && $day == 0 && $year == 0)
+		if(($hour == 0) && ($minute == 0) && ($second == 0) && ($month == 0) && ($day == 0) && ($year == 0))
 		{
 			return time();
 		}
 
-	list($year, $month, $day)=jalali_to_gregorian($year, $month, $day);
+	list($year, $month, $day)= jalali_to_gregorian($year, $month, $day);
 	return mktime($hour, $minute, $second, $month, $day, $year, $is_dst);
 }
 
 function pcheckdate($month, $day, $year)
 {
 
-		if($month < 1 || $month > 12 || $year < 1 || $year > 32767 || $day < 1)
+		if(($month < 1) || ($month > 12) || ($year < 1) || ($year > 32767) || ($day < 1))
 		{
 			return 0;
 		}
@@ -426,7 +426,7 @@ function pcheckdate($month, $day, $year)
 
 		if($day > $MonthDays[$month])
 		{
-			if($month != 12 || $day != 30 || !isKabise($year))
+			if(($month != 12) || ($day != 30) || !isKabise($year))
 			{
 				return 0;
 			}
@@ -438,13 +438,13 @@ function pcheckdate($month, $day, $year)
 function pgetdate($timestamp= '')
 {
 
-		if($timestamp=== '')
+		if($timestamp === '')
 		{
-			$timestamp=mktime();
+			$timestamp= mktime();
 		}
 
 	list($seconds, $minutes, $hours, $mday, $wday, $mon, $year, $yday, $weekday, $month)= explode('-', pdate('s-i-G-j-w-n-Y-z-l-F', $timestamp));
-	return array(0=>$timestamp, 'seconds'=>$seconds, 'minutes'=>$minutes, 'hours'=>$hours, 'mday'=>$mday, 'wday'=>$wday, 'mon'=>$mon, 'year'=>$year, 'yday'=>$yday, 'weekday'=>$weekday, 'month'=>$month,);
+	return array(0=>$timestamp, 'seconds'=>$seconds, 'minutes'=>$minutes, 'hours'=>$hours, 'mday'=>$mday, 'wday'=>$wday, 'mon'=>$mon, 'year'=>$year, 'yday'=>$yday, 'weekday'=>$weekday, 'month'=>$month);
 }
 
 # Copyright (C) 2000 Roozbeh Pournader and Mohammad Toossi 
@@ -470,8 +470,8 @@ function div($a, $b)
 
 function gregorian_to_jalali ($g_y, $g_m, $g_d)
 {
-	$g_days_in_month= array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-	$j_days_in_month= array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
+	static $g_days_in_month= array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+	static $j_days_in_month= array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
 	$gy= ($g_y - 1600);
 	$gm= ($g_m - 1);
 	$gd= ($g_d - 1);
@@ -482,13 +482,13 @@ function gregorian_to_jalali ($g_y, $g_m, $g_d)
 			$g_day_no += $g_days_in_month[$i];
 		}
 
-		if ($gm>1 && (($gy%4==0 && $gy%100!=0) || ($gy%400==0)))
+		if($gm > 1 && (($gy % 4 == 0 && $gy % 100 != 0) || ($gy % 400 == 0)))
 	/* leap and after Feb */
 	$g_day_no++;
 	$g_day_no+= $gd;
-	$j_day_no= $g_day_no-79;
+	$j_day_no= ($g_day_no - 79);
 	$j_np= div($j_day_no, 12053); /* 12053= 365 * 33 + 32 / 4 */
-	$j_day_no= $j_day_no % 12053;
+	$j_day_no= ($j_day_no % 12053);
 	$jy= (979 + 33 * $j_np + 4 * div($j_day_no, 1461)); /* 1461= 365 * 4 + 4 / 4 */
 	$j_day_no%= 1461;
 
@@ -510,8 +510,8 @@ function gregorian_to_jalali ($g_y, $g_m, $g_d)
 
 function jalali_to_gregorian($j_y, $j_m, $j_d)
 {
-	$g_days_in_month= array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-	$j_days_in_month= array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
+	static $g_days_in_month= array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+	static $j_days_in_month= array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
 	$jy= ($j_y - 979);
 	$jm= ($j_m - 1);
 	$jd= ($j_d - 1);
@@ -559,8 +559,8 @@ function jalali_to_gregorian($j_y, $j_m, $j_d)
 			$g_day_no-= ($g_days_in_month[$i] + ($i == 1 && $leap));
 		}
 
-	$gm= $i+1;
-	$gd= $g_day_no+1;
+	$gm= $i + 1;
+	$gd= ($g_day_no + 1);
 
 	return array($gy, $gm, $gd);
 }
