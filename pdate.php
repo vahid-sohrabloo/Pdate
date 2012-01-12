@@ -1,6 +1,6 @@
 <?php
 
-# Copyright (C) 2009-2012 Vahid Sohrabloo (iranphp.org) 
+# Copyright (C) 2009-2012 Vahid Sohrablou (iranphp.org) 
 # 
 # This program is free software; you can redistribute it and/or 
 # modify it under the terms of the GNU General Public License 
@@ -18,30 +18,8 @@
 
 # Version 1.2.8
 
-static $pdate_week_name = array(
-										'شنبه',
-										'یکشنبه',
-										'دوشنبه',
-										'سه شنبه',
-										'چهارشنبه',
-										'پنج شنبه',
-										'جمعه'
-										);
-static $pdate_month_name = array(
-										'',
-										'فروردین',
-										'اردیبهشت',
-										'خرداد',
-										'تیر',
-										'مرداد',
-										'شهریور',
-										'مهر',
-										'آبان',
-										'آذر',
-										'دی',
-										'بهمن',
-										'اسفند'
-										);
+static $pdate_week_name = array('شنبه', 'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه');
+static $pdate_month_name = array('', 'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند');
 static $month_days = array(0, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
 
 function pdate($format, $timestamp = NULL)
@@ -407,7 +385,7 @@ function pmktime($hour = 0, $minute = 0, $second = 0, $month = 0, $day = 0, $yea
 			return time();
 		}
 
-	list($year, $month, $day)= jalali_to_gregorian($year, $month, $day);
+	list($year, $month, $day) = jalali_to_gregorian($year, $month, $day);
 	return mktime($hour, $minute, $second, $month, $day, $year, $is_dst);
 }
 
