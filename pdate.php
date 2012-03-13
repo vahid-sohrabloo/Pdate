@@ -1,6 +1,6 @@
 <?php
 
-# Copyright (C) 2009-2011 Vahid sohrabloo (iranphp.org) 
+# Copyright (C) 2009-2012 Vahid sohrabloo (iranphp.org) 
 # 
 # This program is free software; you can redistribute it and/or 
 # modify it under the terms of the GNU General Public License 
@@ -16,37 +16,39 @@
 # 
 # <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a> 
 
-# Version 1.2.7
+# Version 1.2.8
 
 static $pdateWeekName= array(
-'شنبه',
-'یکشنبه',
-'دوشنبه',
-'سه شنبه',
-'چهارشنبه',
-'پنج شنبه',
-'جمعه');
+										'شنبه',
+										'یکشنبه',
+										'دوشنبه',
+										'سه شنبه',
+										'چهارشنبه',
+										'پنج شنبه',
+										'جمعه'
+										);
 static $pdateMonthName= array(
-'',
-'فروردین',
-'اردیبهشت',
-'خرداد',
-'تیر',
-'مرداد',
-'شهریور',
-'مهر',
-'آبان',
-'آذر',
-'دی',
-'بهمن',
-'اسفند');
+										'',
+										'فروردین',
+										'اردیبهشت',
+										'خرداد',
+										'تیر',
+										'مرداد',
+										'شهریور',
+										'مهر',
+										'آبان',
+										'آذر',
+										'دی',
+										'بهمن',
+										'اسفند'
+										);
 static $MonthDays= array(0, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
 
 function pdate($format, $timestamp= '')
 {
 	global $pdateMonthName, $pdateWeekName, $MonthDays;
 	
-		if($timestamp === '')
+		if(!$timestamp)
 		{
 			$timestamp= time();
 		}
@@ -208,7 +210,7 @@ function pstrftime($format, $timestamp= '')
 {
 	global $pdateMonthName, $pdateWeekName, $MonthDays;
 
-		if($timestamp === '')
+		if(!$timestamp)
 		{
 			$timestamp= time();
 		}
@@ -377,7 +379,7 @@ function pstrftime($format, $timestamp= '')
 	return $result;
 }
 
-function DayOfYear($pYear, $pMonth, $pDay)
+function DayOfYear($pMonth, $pDay)
 {
 	global $MonthDays;
 	$days= 0;
@@ -404,7 +406,6 @@ function isKabise($year)
 
 function pmktime($hour= 0, $minute= 0, $second= 0, $month= 0, $day= 0, $year= 0, $is_dst= -1)
 {
-	
 		if(($hour == 0) && ($minute == 0) && ($second == 0) && ($month == 0) && ($day == 0) && ($year == 0))
 		{
 			return time();
@@ -416,7 +417,6 @@ function pmktime($hour= 0, $minute= 0, $second= 0, $month= 0, $day= 0, $year= 0,
 
 function pcheckdate($month, $day, $year)
 {
-
 		if(($month < 1) || ($month > 12) || ($year < 1) || ($year > 32767) || ($day < 1))
 		{
 			return 0;
@@ -437,8 +437,7 @@ function pcheckdate($month, $day, $year)
 
 function pgetdate($timestamp= '')
 {
-
-		if($timestamp === '')
+		if(!$timestamp)
 		{
 			$timestamp= mktime();
 		}
