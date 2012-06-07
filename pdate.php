@@ -82,7 +82,7 @@ function pdate($format, $timestamp = NULL)
 					break;
 
 					case 'z':
-						$result .= DayOfYear($pYear, $pMonth, $pDay);
+						$result .= DayOfYear($pMonth, $pDay);
 					break;
 
 					case 'S':
@@ -91,7 +91,7 @@ function pdate($format, $timestamp = NULL)
 
 					# Week
 					case 'W':
-						$result .= ceil(DayOfYear($pYear, $pMonth, $pDay) / 7);
+						$result .= ceil(DayOfYear($pMonth, $pDay) / 7);
 					break;
 
 					# Month
@@ -231,7 +231,7 @@ function pstrftime($format, $timestamp = NULL)
 						break;
 
 						case 'j':
-							$dayinM = DayOfYear($pYear, $pMonth, $pDay);
+							$dayinM = DayOfYear($pMonth, $pDay);
 							$result .= (($dayinM < 10) ? '00' . $dayinM : (($dayinM < 100) ? '0' . $dayinM : $dayinM));
 						break;
 
@@ -245,12 +245,12 @@ function pstrftime($format, $timestamp = NULL)
 
 						# Week
 						case 'U':
-							$result .= floor(DayOfYear($pYear, $pMonth, $pDay) / 7);
+							$result .= floor(DayOfYear($pMonth, $pDay) / 7);
 						break;
 
 						case 'V':
 						case 'W':
-							$result .= ceil(DayOfYear($pYear, $pMonth, $pDay) / 7);
+							$result .= ceil(DayOfYear($pMonth, $pDay) / 7);
 						break;
 
 						# Month
