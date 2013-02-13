@@ -31,7 +31,6 @@ function pdate($format, $timestamp = NULL)
 		$timestamp = time();
 	}
 
-	ini_set('date.timezone', 'Asia/Tehran');
 	# Create need date parametrs
 	list($gYear, $gMonth, $gDay, $gWeek) = explode('-', date('Y-m-d-w', $timestamp));
 	list($pYear, $pMonth, $pDay) = gregorian_to_jalali($gYear, $gMonth, $gDay);
@@ -168,7 +167,7 @@ function pdate($format, $timestamp = NULL)
 
 			# Full Date/Time
 			case 'c':
-				$result .= ($pYear . '/' . $pMonth . '/' . $pDay . ' ' . date('H:i:s P', $timestamp));
+				$result .= ($pYear . '-' . $pMonth . '-' . $pDay . ' ' . date('H:i:s P', $timestamp));
 			break;
 
 			case 'r':
@@ -188,7 +187,7 @@ function pdate($format, $timestamp = NULL)
 	return $result;
 }
 
-function pstrftime($format, $timestamp = NULL, $timezone = 'Asia/Tehran')
+function pstrftime($format, $timestamp = NULL)
 {
 	global $pdate_month_name, $pdate_week_name, $pdate_month_days;
 
@@ -198,7 +197,6 @@ function pstrftime($format, $timestamp = NULL, $timezone = 'Asia/Tehran')
 	}
 
 	# Create need date parametrs
-	ini_set('date.timezone', $timezone);
 	list($gYear, $gMonth, $gDay, $gWeek) = explode ('-', date('Y-m-d-w', $timestamp));
 	list($pYear, $pMonth, $pDay) = gregorian_to_jalali($gYear, $gMonth, $gDay);
 	$pWeek = $gWeek + 1;
@@ -323,11 +321,11 @@ function pstrftime($format, $timestamp = NULL, $timezone = 'Asia/Tehran')
 				
 				case 'D':
 				case 'x':
-					$result .= ((($pMonth < 10) ? '0' . $pMonth : $pMonth) . '/' . (($pDay < 10) ? '0' . $pDay : $pDay) . '/' . substr($pYear, 2));
+					$result .= ((($pMonth < 10) ? '0' . $pMonth : $pMonth) . '-' . (($pDay < 10) ? '0' . $pDay : $pDay) . '-' . substr($pYear, 2));
 				break;
 
 				case 'F':
-					$result .= ($pYear . '/' . (($pMonth < 10) ? '0' . $pMonth:$pMonth) . '/' . (($pDay < 10) ? '0' . $pDay : $pDay));
+					$result .= ($pYear . '-' . (($pMonth < 10) ? '0' . $pMonth:$pMonth) . '-' . (($pDay < 10) ? '0' . $pDay : $pDay));
 				break;
 
 				case 's':
@@ -421,7 +419,6 @@ function pgetdate($timestamp = NULL)
 {
 	if(!$timestamp)
 	{
-		ini_set('date.timezone', 'Asia/Tehran');
 		$timestamp = mktime();
 	}
 
