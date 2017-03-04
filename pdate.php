@@ -1,6 +1,6 @@
 <?php
 
-# Copyright (C) 1388-1392 / 2009-2013 Vahid Sohrablou (IranPHP.org) 
+# Copyright (C) 1388-1395 / 2009-2017 Vahid Sohrablou (IranPHP.org) 
 # 
 # This program is free software; you can redistribute it and/or 
 # modify it under the terms of the GNU General Public License 
@@ -16,7 +16,7 @@
 # 
 # <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a> 
 
-# Version 1.2.9
+# Version 1.2.9-1
 
 static $pdate_month_name = array('', 'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند');
 static $pdate_week_name = array('شنبه', 'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه');
@@ -31,7 +31,7 @@ function pdate($format, $timestamp = NULL)
 		$timestamp = time();
 	}
 
-	# Create need date parametrs
+	# Creating date parametrs
 	list($gYear, $gMonth, $gDay, $gWeek) = explode('-', date('Y-m-d-w', $timestamp));
 	list($pYear, $pMonth, $pDay) = gregorian_to_jalali($gYear, $gMonth, $gDay);
 	$pWeek = ($gWeek + 1);
@@ -196,7 +196,7 @@ function pstrftime($format, $timestamp = NULL)
 		$timestamp= time();
 	}
 
-	# Create need date parametrs
+	# Creating date parametrs
 	list($gYear, $gMonth, $gDay, $gWeek) = explode ('-', date('Y-m-d-w', $timestamp));
 	list($pYear, $pMonth, $pDay) = gregorian_to_jalali($gYear, $gMonth, $gDay);
 	$pWeek = $gWeek + 1;
@@ -376,12 +376,14 @@ function isKabise($year)
 {
 	$mod = ($year % 33);
 
-	if(($mod == 1) or ($mod == 5) or ($mod == 9) or ($mod == 13) or ($mod == 17) or ($mod == 22) or ($mod == 26) or ($mod == 30))
+	switch($mod)
 	{
-		return 1;
+		case 1: case 5: case 9: case 13: case 17: case 22: case 26: case 30: 
+			return TRUE;
+		break;
 	}
 
-	return 0;
+	return FALSE;
 }
 
 function pmktime($hour = 0, $minute = 0, $second = 0, $month = 0, $day = 0, $year = 0, $is_dst = -1)
@@ -395,11 +397,12 @@ function pmktime($hour = 0, $minute = 0, $second = 0, $month = 0, $day = 0, $yea
 	return mktime($hour, $minute, $second, $month, $day, $year, $is_dst);
 }
 
+# Check if several dates are valid Persian dates.
 function pcheckdate($month, $day, $year)
 {
 	if(($month < 1) || ($month > 12) || ($year < 1) || ($year > 32767) || ($day < 1))
 	{
-		return 0;
+		return FALSE;
 	}
 
 	global $pdate_month_days;
@@ -408,13 +411,14 @@ function pcheckdate($month, $day, $year)
 	{
 		if(($month != 12) || ($day != 30) || !isKabise($year))
 		{
-			return 0;
+			return FALSE;
 		}
 	}
 
-	return 1;
+	return TRUE;
 }
 
+#  Returns Persian date/time information of a timestamp or the current local Persian date/time.
 function pgetdate($timestamp = NULL)
 {
 	if(!$timestamp)
