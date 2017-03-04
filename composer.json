@@ -1,0 +1,38 @@
+{
+	"name": "vahid-sohrabloo/pdate",
+	"description": "Persian date function for php",
+	"version": "1.2.9",
+	"type": "library",
+	"keywords": ["date", "persian", "khorshidi"],
+	"homepage": "https://github.com/vahid-sohrabloo/Pdate",
+	"time": "2017-3-4",
+	"license": "GPL",
+	"authors":
+	[
+		{
+			"name": "Vahid Sohrablou",
+			"email": "Info@IranPHP.org",
+			"homepage": "http://mydolphin.ir",
+			"role": "Developer"
+		}
+	],
+	"support":
+	{
+		"email": "Info@IranPHP.org",
+		"issues": "https://github.com/vahid-sohrabloo/Pdate/issues",
+		"forum": "https://forum.iranphp.org/",
+		"wiki": "https://github.com/vahid-sohrabloo/Pdate/wiki",
+		"irc": "irc://irc.freenode.org/IranPHP",
+		"source": "https://github.com/vahid-sohrabloo/Pdate",
+		"docs": "https://github.com/vahid-sohrabloo/Pdate/wiki"
+	},
+	"require":
+	{
+		"php": ">=5"
+	},
+	"config":
+	{
+		"platform": {"php": "5"},
+		"vendor-dir": "vendor"
+	}
+}
