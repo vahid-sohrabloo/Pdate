@@ -1,0 +1,15 @@
+language: php
+
+php:
+ - '5.6'
+ - '7.0'
+
+before_script:
+- composer selfupdate
+- composer update
+
+script: phpunit tests/pdateTest.php
+
+notifications:
+ on_success: never
+ on_failure: never
