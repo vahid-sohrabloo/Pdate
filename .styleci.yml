@@ -1,3 +1,6 @@
 preset: recommended
 
 risky: false
+
+disabled:
+ - no_tab_indentation
