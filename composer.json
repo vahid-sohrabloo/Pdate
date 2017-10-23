@@ -1,12 +1,12 @@
 {
 	"name": "vahid-sohrabloo/pdate",
-	"description": "Persian date function for php",
-	"version": "1.2.9",
+	"description": "Persian date function for PHP",
+	"version": "1.2.10",
 	"type": "library",
 	"keywords": ["date", "persian", "khorshidi"],
 	"homepage": "https://github.com/vahid-sohrabloo/Pdate",
-	"time": "2017-3-4",
-	"license": "GPL",
+	"time": "2017-10-18",
+	"license": "GPL-3.0",
 	"authors":
 	[
 		{
@@ -30,9 +30,24 @@
 	{
 		"php": ">=5"
 	},
+	"require-dev":
+	{
+		"phpunit/phpunit": "5.7.*"
+	},
+	"autoload-dev":
+	{
+		"classmap":
+		[
+			"tests/"
+		],
+		"files":
+		[
+		"tests/pdateTest.php"
+		]
+	},
 	"config":
 	{
-		"platform": {"php": "5"},
+		"platform": {"php": "5.6"},
 		"vendor-dir": "vendor"
 	}
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.7/phpunit.xsd"
+		bootstrap="./pdate.php"
+		colors="true"
+		failOnRisky="true"
+		failOnWarning="true"
+		syntaxCheck="true"
+		stopOnError="true"
+		stopOnFailure="true"
+		stopOnIncomplete="true"
+		stopOnSkipped="true"
+		stopOnRisky="true">
+
+	<php>
+		<ini name="error_reporting" value="1"/>
+	</php>
+
+	<testsuites>
+		<testsuite name="Default">
+			<directory suffix=".php">./tests</directory>
+		</testsuite>
+	</testsuites>
+
+	<filter>
+		<whitelist>
+			<directory>./pdate.php</directory>
+		</whitelist>
+	</filter>
+</phpunit>
