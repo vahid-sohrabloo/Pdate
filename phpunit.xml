@@ -1,31 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-		xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.7/phpunit.xsd"
-		bootstrap="./pdate.php"
-		colors="true"
-		failOnRisky="true"
-		failOnWarning="true"
-		syntaxCheck="true"
-		stopOnError="true"
-		stopOnFailure="true"
-		stopOnIncomplete="true"
-		stopOnSkipped="true"
-		stopOnRisky="true">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.7/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true" verbose="false" processIsolation="false"
+         timeoutForSmallTests="5" timeoutForMediumTests="30" timeoutForLargeTests="60"
+         convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true"
+         failOnWarning="true" failOnRisky="false" stopOnError="false" stopOnFailure="false" stopOnSkipped="false" stopOnRisky="false"
+         beStrictAboutCoversAnnotation="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutResourceUsageDuringSmallTests="true" beStrictAboutOutputDuringTests="true" beStrictAboutTodoAnnotatedTests="true">
 
-	<php>
-		<ini name="error_reporting" value="1"/>
-	</php>
+    <!-- Note: To change php.ini settings, use bootstrap.php instead of `<php>` tags. -->
 
-	<testsuites>
-		<testsuite name="Default">
-			<directory suffix=".php">./tests</directory>
-		</testsuite>
-	</testsuites>
+    <testsuites>
+        <testsuite name="all">
+            <directory suffix="Test.php">tests</directory>
+        </testsuite>
 
-	<filter>
-		<whitelist>
-			<directory>./pdate.php</directory>
-		</whitelist>
-	</filter>
+        <testsuite name="environment">
+            <file>tests/EnvironmentTest.php</file>
+        </testsuite>
+
+        <testsuite name="requirements">
+            <file>tests/RequirementsTest.php</file>
+        </testsuite>
+
+        <testsuite name="unit">
+            <directory suffix="Test.php">tests/unit</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>

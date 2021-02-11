@@ -1,53 +1,80 @@
 {
-	"name": "vahid-sohrabloo/pdate",
-	"description": "Persian date function for PHP",
-	"version": "1.2.10",
-	"type": "library",
-	"keywords": ["date", "persian", "khorshidi"],
-	"homepage": "https://github.com/vahid-sohrabloo/Pdate",
-	"time": "2017-10-18",
-	"license": "GPL-3.0",
-	"authors":
-	[
-		{
-			"name": "Vahid Sohrablou",
-			"email": "Info@IranPHP.org",
-			"homepage": "http://mydolphin.ir",
-			"role": "Developer"
-		}
-	],
-	"support":
-	{
-		"email": "Info@IranPHP.org",
-		"issues": "https://github.com/vahid-sohrabloo/Pdate/issues",
-		"forum": "https://forum.iranphp.org/",
-		"wiki": "https://github.com/vahid-sohrabloo/Pdate/wiki",
-		"irc": "irc://irc.freenode.org/IranPHP",
-		"source": "https://github.com/vahid-sohrabloo/Pdate",
-		"docs": "https://github.com/vahid-sohrabloo/Pdate/wiki"
-	},
-	"require":
-	{
-		"php": ">=5"
-	},
-	"require-dev":
-	{
-		"phpunit/phpunit": "5.7.*"
-	},
-	"autoload-dev":
-	{
-		"classmap":
-		[
-			"tests/"
-		],
-		"files":
-		[
-		"tests/pdateTest.php"
-		]
-	},
-	"config":
-	{
-		"platform": {"php": "5.6"},
-		"vendor-dir": "vendor"
-	}
+    "name": "vahid-sohrabloo/pdate",
+    "description": "Persian date function for PHP.",
+    "version": "1.2.10",
+    "type": "library",
+    "keywords": ["date", "persian", "khorshidi"],
+    "homepage": "https://github.com/vahid-sohrabloo/Pdate",
+    "time": "2021-02-10",
+    "license": "GPL-3.0-only",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "authors":
+    [
+        {
+            "name": "Vahid Sohrablou",
+            "email": "Info@IranPHP.org",
+            "homepage": "http://mydolphin.ir",
+            "role": "Developer"
+        }
+    ],
+    "support":
+    {
+        "email": "Info@IranPHP.org",
+        "issues": "https://github.com/vahid-sohrabloo/Pdate/issues",
+        "forum": "https://forum.iranphp.org/",
+        "wiki": "https://github.com/vahid-sohrabloo/Pdate/wiki",
+        "irc": "irc://irc.freenode.org/IranPHP",
+        "source": "https://github.com/vahid-sohrabloo/Pdate",
+        "docs": "https://github.com/vahid-sohrabloo/Pdate/wiki"
+    },
+    "require":
+    {
+        "php": ">=5"
+    },
+    "require-dev":
+    {
+        "friendsofphp/php-cs-fixer": "2.*",
+        "phpunit/phpunit": "5.7.*"
+    },
+    "autoload":
+    {
+        "exclude-from-classmap": ["tests/"]
+    },
+    "config":
+    {
+        "process-timeout": 60,
+        "sort-packages": true,
+        "archive-format": "zip",
+        "archive-dir": ".",
+        "platform-check": true,
+        "vendor-dir": "vendor",
+        "platform":
+        {
+            "php": "5.6"
+        }
+    },
+    "archive":
+    {
+        "exclude":
+        [
+            "*.log",
+            "*.cache",
+            "composer.lock"
+        ]
+    },
+    "scripts":
+    {
+        "cleanup": "php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --show-progress=estimating --allow-risky=yes",
+        "reformat": "php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --show-progress=estimating --allow-risky=yes",
+        "test": "php vendor/phpunit/phpunit/phpunit --colors=always --testdox",
+        "phpunit": "php vendor/phpunit/phpunit/phpunit --colors=always --testdox"
+    },
+    "scripts-descriptions":
+    {
+        "cleanup": "Cleanup and reformat all codes.",
+        "reformat": "Cleanup and reformat all codes.",
+        "test": "Run all tests.",
+        "phpunit": "Run all tests."
+    }
 }
