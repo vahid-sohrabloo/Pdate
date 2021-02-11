@@ -1,7 +1,7 @@
 <?php
 
 /*
-    Copyright (C) 1388-1396 / 2009-2017 Vahid Sohrablou (IranPHP.org)
+    Copyright (C) 1388-1399 / 2009-2021 Vahid Sohrablou (IranPHP.org)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -53,80 +53,98 @@ function pDate($format, $timestamp = null)
         if ($par == '\\') {
             $result .= $format[++$i];
             $i++;
+
             continue;
         }
         switch ($par) {
             // Day
             case 'd':
                 $result .= (($pDay < 10) ? ('0'.$pDay) : $pDay);
+
             break;
 
             case 'D':
                 $result .= substr($pdate_week_name[$pWeek], 0, 2);
+
             break;
 
             case 'j':
                 $result .= $pDay;
+
             break;
 
             case 'l':
                 $result .= $pdate_week_name[$pWeek];
+
             break;
 
             case 'N':
                 $result .= $pWeek + 1;
+
             break;
 
             case 'w':
                 $result .= $pWeek;
+
             break;
 
             case 'z':
                 $result .= DayOfYear($pMonth, $pDay);
+
             break;
 
             case 'S':
                 $result .= 'م';
+
             break;
 
             // Week
             case 'W':
                 $result .= ceil(DayOfYear($pMonth, $pDay) / 7);
+
             break;
 
             // Month
             case 'F':
                 $result .= $pdate_month_name[$pMonth];
+
             break;
 
             case 'm':
                 $result .= (($pMonth < 10) ? ('0'.$pMonth) : $pMonth);
+
             break;
 
             case 'M':
                 $result .= substr($pdate_month_name[$pMonth], 0, 6);
+
             break;
 
             case 'n':
                 $result .= $pMonth;
+
             break;
 
             case 't':
                 $result .= ((isKabise($pYear) && ($pMonth == 12)) ? 30 : $pdate_month_days[$pMonth]);
+
             break;
 
             // Years
             case 'L':
                 $result .= (int) isKabise($pYear);
+
             break;
 
             case 'Y':
             case 'o':
                 $result .= $pYear;
+
             break;
 
             case 'y':
                 $result .= substr($pYear, 2);
+
             break;
 
             // Time
@@ -137,6 +155,7 @@ function pDate($format, $timestamp = null)
                 } else {
                     $result .= (($par == 'a') ? '.ب.ظ' : 'بعد از ظهر');
                 }
+
             break;
 
             case 'B':
@@ -155,19 +174,23 @@ function pDate($format, $timestamp = null)
             case 'T':
             case 'Z':
                 $result .= date($par, $timestamp);
+
             break;
 
             // Full date/time
             case 'c':
                 $result .= ($pYear.'-'.$pMonth.'-'.$pDay.' '.date('H:i:s P', $timestamp));
+
             break;
 
             case 'r':
                 $result .= (substr($pdate_week_name[$pWeek], 0, 2).'، '.$pDay.' '.substr($pdate_month_name[$pMonth], 0, 6).' '.$pYear.' '.date('H::i:s P', $timestamp));
+
             break;
 
             case 'U':
                 $result .= $timestamp;
+
             break;
 
             default:
@@ -208,70 +231,85 @@ function pStrFTime($format, $timestamp = null)
                 // Day
                 case 'a':
                     $result .= substr($pdate_week_name[$pWeek], 0, 2);
+
                 break;
 
                 case 'A':
                     $result .= $pdate_week_name[$pWeek];
+
                 break;
 
                 case 'd':
                     $result .= (($pDay < 10) ? '0'.$pDay : $pDay);
+
                 break;
 
                 case 'e':
                     $result .= $pDay;
+
                 break;
 
                 case 'j':
                     $dayinM = DayOfYear($pMonth, $pDay);
-                    $result .= (($dayinM < 10) ? '00'.$dayinM : ($dayinM < 100) ? '0'.$dayinM : $dayinM);
+                    $result .= (($dayinM < 10) ? '00' . $dayinM : ($dayinM < 100) ? '0' . $dayinM : $dayinM);
+
                 break;
 
                 case 'u':
                     $result .= $pWeek + 1;
+
                 break;
 
                 case 'w':
                     $result .= $pWeek;
+
                 break;
 
                 // Week
                 case 'U':
                     $result .= floor(DayOfYear($pMonth, $pDay) / 7);
+
                 break;
 
                 case 'V':
                 case 'W':
                     $result .= ceil(DayOfYear($pMonth, $pDay) / 7);
+
                 break;
 
                 // Month
                 case 'b':
                 case 'h':
                     $result .= substr($pdate_month_name[$pMonth], 0, 6);
+
                 break;
 
                 case 'B':
                     $result .= $pdate_month_name[$pMonth];
+
                 break;
 
                 case 'm':
                     $result .= (($pMonth < 10) ? '0'.$pMonth : $pMonth);
+
                 break;
 
                 // Year
                 case 'C':
                     $result .= ceil($pYear / 100);
+
                 break;
 
                 case 'g':
                 case 'y':
                     $result .= substr($pYear, 2);
+
                 break;
 
                 case 'G':
                 case 'Y':
                     $result .= $pYear;
+
                 break;
 
                 // Time
@@ -286,6 +324,7 @@ function pStrFTime($format, $timestamp = null)
                 case 'z':
                 case 'Z':
                     $result .= strftime('%'.$type, $timestamp);
+
                 break;
 
                 case 'p':
@@ -296,37 +335,45 @@ function pStrFTime($format, $timestamp = null)
                     } else {
                         $result .= (($type == 'p') ? 'ب.ظ' : ($type == 'P') ? 'بعد از ظهر' : strftime('%I:%M:%S بعد از ظهر', $timestamp));
                     }
+
                 break;
 
                 // Time and date stamps
                 case 'c':
                     $result .= (substr($pdate_week_name[$pWeek], 0, 2).' '.substr($pdate_month_name[$pMonth], 0, 6).' '.$pDay.' '.strftime('%T', $timestamp).' '.$pYear);
+
                 break;
 
                 case 'D':
                 case 'x':
                     $result .= ((($pMonth < 10) ? '0'.$pMonth : $pMonth).'-'.(($pDay < 10) ? '0'.$pDay : $pDay).'-'.substr($pYear, 2));
+
                 break;
 
                 case 'F':
                     $result .= ($pYear.'-'.(($pMonth < 10) ? '0'.$pMonth : $pMonth).'-'.(($pDay < 10) ? '0'.$pDay : $pDay));
+
                 break;
 
                 case 's':
                     $result .= $timestamp;
+
                 break;
 
                 // Miscellaneous
                 case 'n':
                     $result .= "\n";
+
                 break;
 
                 case 't':
                     $result .= "\t";
+
                 break;
 
                 case '%':
                     $result .= '%';
+
                 break;
 
                 default:
@@ -360,6 +407,7 @@ function isKabise($year)
     switch ($mod) {
         case 1: case 5: case 9: case 13: case 17: case 22: case 26: case 30:
             return true;
+
         break;
     }
 
